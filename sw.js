@@ -11,3 +11,14 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
   clients.claim(); // 立即受控
 })
+
+// 拦截图片
+// 第一步：修改SW
+// 第二步：刷新页面，注册新SW，注册完成后，请求已获取图片资源，仍显示就图
+// 第三步: 重新请求图片，然后拦截
+self.addEventListener('fetch', event => {
+  console.log('fetch', event.request.url);
+  if (/network\.png$/.test(event.request.url)) {
+    return event.respondWith(fetch('images/pwa.png'));
+  }
+})
