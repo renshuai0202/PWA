@@ -22,3 +22,22 @@ self.addEventListener('fetch', event => {
     return event.respondWith(fetch('images/pwa.png'));
   }
 })
+
+// 对404页面进行拦截
+self.addEventListener('fetch', event => {
+  // 判断模式：在文档之间导航
+  if (event.request.mode === 'navigate') {
+    console.log('true');
+    return event.respondWith(
+      fetch(event.request).then(res => {
+        console.log(res.status);
+        if (res.status === 404) {
+          return fetch('customer404.html');
+        } else {
+          return res;
+        }
+
+      })
+    )
+  }
+})
