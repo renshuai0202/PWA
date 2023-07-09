@@ -13,4 +13,15 @@
   <image src="./来自网络.png"></image>
 </body>
 
+<script type="module">
+  navigator.serviceWorker
+    .register('sw.js')
+    .then(() => {
+      console.log('注册成功');
+    })
+    .catch(e => {
+      console.log('注册失败', e);
+    })
+</script>
+
 </html>
